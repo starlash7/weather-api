@@ -1,6 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import {
+  WiCloud,
+  WiDaySunny,
+  WiDayCloudy,
+  WiCloudyGusts,
+  WiRain,
+  WiRainMix,
+  WiLightning,
+  WiFog,
+  WiSnowflakeCold,
+} from "react-icons/wi";
 
 const WeatherIcon = () => {
   const [latitude, setLatitude] = useState();
@@ -14,8 +25,6 @@ const WeatherIcon = () => {
           import.meta.env.VITE_API_KEY
         }&units=metric`
       );
-
-      console.log(response);
 
       setWeatherData(response.data);
     } catch (error) {
@@ -36,14 +45,43 @@ const WeatherIcon = () => {
     getWeather();
   }, [latitude]);
 
+  useEffect(() => {
+    if (!weatherData) return;
+
+    console.log(weatherData.weather[0].icon.substring(0, 2));
+  }, [weatherData]);
+
   if (!weatherData) return <div>loading...</div>;
 
   return (
     <div className="text-xs flex items-center">
-      <img
-        className="w-12 h-12"
-        src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-      />
+      {weatherData.weather[0].icon.substring(0, 2) === "01" && (
+        <WiDaySunny size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "02" && (
+        <WiCloud size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "03" && (
+        <WiDayCloudy size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "04" && (
+        <WiCloudyGusts size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "09" && (
+        <WiRain size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "10" && (
+        <WiRainMix size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "11" && (
+        <WiLightning size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "13" && (
+        <WiFog size={32} />
+      )}
+      {weatherData.weather[0].icon.substring(0, 2) === "14" && (
+        <WiSnowflakeCold size={32} />
+      )}
       <div className="w-16">
         <div className="font-semibold">{weatherData.name}</div>
         <div>{weatherData.main.temp.toFixed(1)}℃</div>
