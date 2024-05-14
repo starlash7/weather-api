@@ -13,6 +13,18 @@ import {
   WiSnowflakeCold,
 } from "react-icons/wi";
 
+const wetherIcons = {
+  "01": <WiCloud size={32} />,
+  "02": <WiDaySunny size={32} />,
+  "03": <WiDayCloudy size={32} />,
+  "04": <WiCloudyGusts size={32} />,
+  "09": <WiRain size={32} />,
+  10: <WiRainMix size={32} />,
+  11: <WiLightning size={32} />,
+  13: <WiFog size={32} />,
+  50: <WiSnowflakeCold size={32} />,
+};
+
 const WeatherIcon = () => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
@@ -55,33 +67,7 @@ const WeatherIcon = () => {
 
   return (
     <div className="text-xs flex items-center">
-      {weatherData.weather[0].icon.substring(0, 2) === "01" && (
-        <WiDaySunny size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "02" && (
-        <WiCloud size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "03" && (
-        <WiDayCloudy size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "04" && (
-        <WiCloudyGusts size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "09" && (
-        <WiRain size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "10" && (
-        <WiRainMix size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "11" && (
-        <WiLightning size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "13" && (
-        <WiFog size={32} />
-      )}
-      {weatherData.weather[0].icon.substring(0, 2) === "14" && (
-        <WiSnowflakeCold size={32} />
-      )}
+      {wetherIcons[weatherData.weather[0].icon.substring(0, 2)]}
       <div className="w-16">
         <div className="font-semibold">{weatherData.name}</div>
         <div>{weatherData.main.temp.toFixed(1)}℃</div>
